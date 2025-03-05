@@ -1,4 +1,4 @@
-package com.SchoolNews.jefiro.br.mebers;
+package com.SchoolNews.jefiro.br.models.enumm;
 
 import lombok.Getter;
 

@@ -1,14 +1,11 @@
 package com.SchoolNews.jefiro.br.models;
 
 
-import com.SchoolNews.jefiro.br.mebers.MembersModel;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-
-import java.util.List;
 
 @Getter
 @Setter

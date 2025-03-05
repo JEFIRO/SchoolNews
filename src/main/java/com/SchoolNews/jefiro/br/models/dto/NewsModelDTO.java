@@ -1,6 +1,9 @@
-package com.SchoolNews.jefiro.br.models;
+package com.SchoolNews.jefiro.br.models.dto;
+
+import com.SchoolNews.jefiro.br.models.MembersModel;
 
 public record NewsModelDTO(
+        String id,
         String title,
         String description,
         String imageMain,
@@ -8,5 +11,6 @@ public record NewsModelDTO(
         String datePublished,
         String author,
         String lead,
-        String content
+        String content,
+        MembersModel member
 ) {}
