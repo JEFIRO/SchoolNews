@@ -44,6 +44,7 @@ public class MembersModel implements UserDetails {
     private String dateUpdated;
     private Boolean status;
     private Boolean publishedPermission;
+    private Boolean accountNotLocked;
 
     @OneToMany(mappedBy = "members",cascade = CascadeType.ALL, orphanRemoval = true)
     private List<NewsModel> news;
@@ -57,6 +58,8 @@ public class MembersModel implements UserDetails {
         this.dateCreated = LocalDateTime.now().toString();
         this.status = true;
         this.publishedPermission = true;
+        this.accountNotLocked = true;
+
 
     }
 
@@ -81,7 +84,7 @@ public class MembersModel implements UserDetails {
 
     @Override
     public boolean isAccountNonLocked() {
-        return true;
+        return this.accountNotLocked;
     }
 
     @Override
@@ -91,6 +94,6 @@ public class MembersModel implements UserDetails {
 
     @Override
     public boolean isEnabled() {
-        return true;
+        return this.status;
     }
 }

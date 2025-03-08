@@ -17,7 +17,6 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
@@ -53,7 +52,9 @@ public class MemberController {
 
     @PostMapping("auth/v1/singin")
     public ResponseEntity<?> login(@RequestBody @Valid AuthDTO data) {
-        if (data == null) {return ResponseEntity.badRequest().build();}
+        if (data == null) {
+            return ResponseEntity.badRequest().build();
+        }
         var userNamePassWord = new UsernamePasswordAuthenticationToken(data.email(), data.passWord());
         var auth = this.authenticationManager.authenticate(userNamePassWord);
 
@@ -64,8 +65,10 @@ public class MemberController {
     }
 
     @PostMapping("/find")
-    public ResponseEntity<?> findMember(@RequestBody @Valid FindMemberDTO date){
-        if (date == null || date.email() == null){return ResponseEntity.badRequest().build();}
+    public ResponseEntity<?> findMember(@RequestBody @Valid FindMemberDTO date) {
+        if (date == null || date.email() == null) {
+            return ResponseEntity.badRequest().build();
+        }
 
         var response = memberService.findMember(date);
 
