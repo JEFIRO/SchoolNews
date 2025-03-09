@@ -1,0 +1,112 @@
+@import'../../variables.css';
+header{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+    background-color:var(--cinza-claro);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    position: relative;
+}
+.logo_icon img{
+    width: 50px;
+    cursor: pointer;
+}
+.profile_icon img{
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: transform 0.2s ease-in-out;
+}
+
+.profile_icon img:hover {
+    transform: scale(1.1);
+}
+
+.menu {
+    position: absolute;
+    top: 60px; 
+    right: 20px;
+    background: var(--bege-medio);
+    border-radius: 5px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    padding: 10px;
+    width: 150px;
+    z-index: 10;
+  }
+
+  .menu ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  
+  .menu li {
+    padding: 10px;
+    text-align: center;
+    border-radius: 10px;
+    transition: background 0.2s;
+  }
+  
+  
+  .menu a {
+    text-decoration: none;
+    color: var(--preto-fosco);
+    font-weight: 500;
+  }
+  #profile_config {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px;
+    flex-direction:column;
+    align-items: center;
+    
+  }
+  #profile_info {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px;
+    flex-direction:row;
+    align-items: center;
+    
+  }
+  
+  #profile_info img {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+  }
+  
+  #profile_config p {
+    margin: 0; 
+    font-weight: 500;
+  }
+  
+  #profile_config p:first-child {
+    font-size: 1.1em;
+    color: var(--preto-fosco);
+  }
+  
+  #profile_config p:last-child {
+    font-size: 0.9em;
+    color: var(--preto-fosco);
+  }
+  
+  #profile_config a {
+    margin-top: 10px;
+    font-weight: 300;
+    color: #007BFF;
+    text-decoration: none;
+    font-size: 15px;
+  }
+  
+  #profile_config a:hover {
+    cursor: pointer;
+  }
+  #profile_config li:hover{
+    background: var(--cinza-claro);
+  }
+  
