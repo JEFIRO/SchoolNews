@@ -30,6 +30,12 @@ public class NewsModel {
     private String author;
     private String lead;
     private String content;
+    private String dateUpdated;
+    private Boolean status;
+    private Boolean published;
+    private Boolean lockedNews;
+
+
     @ManyToOne
     @JoinColumn(name = "member_id", nullable = false)
     private MembersModel members;
@@ -44,8 +50,9 @@ public class NewsModel {
         this.author = date.author();
         this.lead = date.lead();
         this.content = date.content();
+        this.status = true;
+        this.lockedNews = false;
+        this.published = true;
+        this.dateUpdated = LocalDateTime.now().toString();
     }
-
-
 }
-

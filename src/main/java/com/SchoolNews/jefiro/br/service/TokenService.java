@@ -4,11 +4,14 @@ import com.SchoolNews.jefiro.br.domain.MembersModel;
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.stereotype.Service;
 
 import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.ZoneOffset;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class TokenService {
@@ -18,13 +21,20 @@ public class TokenService {
     public String generateToken(MembersModel membersModel) {
         try {
             Algorithm algorithm = Algorithm.HMAC256(privateKey);
-            String token = JWT.create().withIssuer("Jefiro.dev")
+
+            List<String> roles = membersModel.getAuthorities().stream()
+                    .map(GrantedAuthority::getAuthority) // Acessa as authorities geradas no getAuthorities()
+                    .collect(Collectors.toList());
+
+
+            return JWT.create().withIssuer("Jefiro.dev")
                     .withSubject(membersModel.getEmail())
+                    .withClaim("roles", roles)
                     .withExpiresAt(getExpirationDate())
                     .sign(algorithm);
-            return token;
+
         } catch (Exception e) {
-            return null;
+            return "Error generating token";
         }
     }
 

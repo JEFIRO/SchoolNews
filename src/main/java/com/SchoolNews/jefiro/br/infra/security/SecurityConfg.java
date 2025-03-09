@@ -28,6 +28,7 @@ public class SecurityConfg {
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers(HttpMethod.POST, "auth/v1/singin").permitAll()
                         .requestMatchers(HttpMethod.POST, "auth/v1/singup").permitAll()
+                        .requestMatchers("/api/permission/**").hasRole("ADMIN")
                 )
                 .addFilterBefore(securityFilter, UsernamePasswordAuthenticationFilter.class )
                 .build();
