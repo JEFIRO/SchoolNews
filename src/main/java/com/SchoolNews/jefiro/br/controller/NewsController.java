@@ -1,14 +1,15 @@
 package com.SchoolNews.jefiro.br.controller;
 
+import com.SchoolNews.jefiro.br.models.dto.HomeDTO;
 import com.SchoolNews.jefiro.br.models.dto.NewsModelDTO;
 import com.SchoolNews.jefiro.br.service.NewsService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/news")
@@ -16,6 +17,7 @@ public class NewsController {
     @Autowired
     private NewsService service;
 
+    @PreAuthorize("hasAnyRole('ADMIN', 'EDITOR')")
     @PostMapping("new")
     public ResponseEntity<?> NewNews(@RequestBody @Valid NewsModelDTO date) {
         if (date == null || date.member_id() == null) {
@@ -28,10 +30,9 @@ public class NewsController {
 
     }
 
-    @PostMapping("home")
-    public ResponseEntity<?> homePage() {
-
-        var response = service.homePage();
+    @GetMapping("home")
+    public ResponseEntity<List<HomeDTO>> homePage() {
+        List<HomeDTO> response = service.homePage();
 
         return ResponseEntity.ok().body(response);
     }

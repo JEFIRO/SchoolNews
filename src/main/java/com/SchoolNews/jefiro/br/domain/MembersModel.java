@@ -1,7 +1,7 @@
 package com.SchoolNews.jefiro.br.domain;
 
 import com.SchoolNews.jefiro.br.models.NewsModel;
-import com.SchoolNews.jefiro.br.models.dto.MembersDTO;
+import com.SchoolNews.jefiro.br.models.dto.UpMembersDTO;
 import com.SchoolNews.jefiro.br.models.enumm.MemberRole;
 import jakarta.persistence.*;
 import lombok.*;
@@ -10,7 +10,6 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
@@ -49,7 +48,7 @@ public class MembersModel implements UserDetails {
     @OneToMany(mappedBy = "members",cascade = CascadeType.ALL, orphanRemoval = true)
     private List<NewsModel> news;
 
-    public MembersModel(MembersDTO data, String passWordEncry){
+    public MembersModel(UpMembersDTO data, String passWordEncry){
         this.name = data.name();
         this.email = data.email();
         this.password = passWordEncry;

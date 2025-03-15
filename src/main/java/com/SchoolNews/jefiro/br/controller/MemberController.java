@@ -3,7 +3,7 @@ package com.SchoolNews.jefiro.br.controller;
 import com.SchoolNews.jefiro.br.domain.MembersModel;
 import com.SchoolNews.jefiro.br.models.dto.AuthDTO;
 import com.SchoolNews.jefiro.br.models.dto.FindMemberDTO;
-import com.SchoolNews.jefiro.br.models.dto.MembersDTO;
+import com.SchoolNews.jefiro.br.models.dto.UpMembersDTO;
 import com.SchoolNews.jefiro.br.models.dto.TokenDTO;
 import com.SchoolNews.jefiro.br.repository.MemberRepository;
 import com.SchoolNews.jefiro.br.service.MemberService;
@@ -15,9 +15,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 public class MemberController {
@@ -34,12 +32,11 @@ public class MemberController {
     private TokenService tokenService;
 
     @PostMapping("auth/v1/singup")
-    public ResponseEntity<?> register(@RequestBody @Valid MembersDTO data) {
+    public ResponseEntity<?> register(@RequestBody @Valid UpMembersDTO data) {
         if (data == null) {
             return ResponseEntity.badRequest().build();
         }
 
-        // Verificar se o email já está registrado
         if (repository.existsByEmail(data.email())) {
             return ResponseEntity.status(HttpStatus.CONFLICT).body("Email já está em uso.");
         }
@@ -64,14 +61,28 @@ public class MemberController {
 
     }
 
-    @PostMapping("/find")
-    public ResponseEntity<?> findMember(@RequestBody @Valid FindMemberDTO date) {
-        if (date == null || date.email() == null) {
+    @PostMapping("/find{date}")
+    public ResponseEntity<?> findMember(@PathVariable String date) {
+        try {
+
+            var response = memberService.findMember(date);
+
+            return ResponseEntity.ok().body(response);
+
+        } catch (Exception e) {
             return ResponseEntity.badRequest().build();
         }
+    }
 
-        var response = memberService.findMember(date);
+    @GetMapping("/allMember")
+    public ResponseEntity<?> findAllMember() {
+        try {
 
-        return ResponseEntity.ok().body(response);
+            var response = memberService.findAllMember();
+            return ResponseEntity.ok().body(response);
+
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().build();
+        }
     }
 }

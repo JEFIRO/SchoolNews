@@ -1,6 +1,6 @@
 package com.SchoolNews.jefiro.br.models.dto;
 
-public record MembersDTO(
+public record UpMembersDTO(
         String name,
         String email,
         String passWord,

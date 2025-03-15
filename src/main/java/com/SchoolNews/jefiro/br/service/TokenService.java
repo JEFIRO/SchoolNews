@@ -23,7 +23,7 @@ public class TokenService {
             Algorithm algorithm = Algorithm.HMAC256(privateKey);
 
             List<String> roles = membersModel.getAuthorities().stream()
-                    .map(GrantedAuthority::getAuthority) // Acessa as authorities geradas no getAuthorities()
+                    .map(GrantedAuthority::getAuthority)
                     .collect(Collectors.toList());
 
 

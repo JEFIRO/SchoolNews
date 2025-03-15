@@ -2,6 +2,7 @@ package com.SchoolNews.jefiro.br.models;
 
 
 import com.SchoolNews.jefiro.br.domain.MembersModel;
+import com.SchoolNews.jefiro.br.models.dto.HomeDTO;
 import com.SchoolNews.jefiro.br.models.dto.NewsModelDTO;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -29,6 +30,7 @@ public class NewsModel {
     private String datePublished;
     private String author;
     private String lead;
+    @Column(length = 100000)
     private String content;
     private String dateUpdated;
     private Boolean status;
@@ -54,5 +56,15 @@ public class NewsModel {
         this.lockedNews = false;
         this.published = true;
         this.dateUpdated = LocalDateTime.now().toString();
+    }
+    public NewsModel(HomeDTO date){
+        this.title = date.title();
+        this.description = date.description();
+        this.imageMain = date.imageMain();
+        this.imageMainDescription = date.imageMainDescription();
+        this.datePublished = LocalDateTime.now().toString();
+        this.author = date.author();
+        this.lead = date.lead();
+        this.content = date.content();
     }
 }
