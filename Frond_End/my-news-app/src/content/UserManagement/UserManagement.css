@@ -1,0 +1,64 @@
+.user-management {
+    max-width: 900px;
+    margin: auto;
+    padding: 20px;
+    background-color: var(--branco-gelo);
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  h1 {
+    text-align: center;
+    color: var(--vermelho-escuro);
+  }
+  
+  .add-user-form {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
+  }
+  
+  .add-user-form input, .add-user-form select {
+    padding: 8px;
+    border: 1px solid var(--cinza-claro);
+    border-radius: 4px;
+  }
+  
+  .add-user-form button {
+    background-color: var(--vermelho-escuro);
+    color: var(--branco-gelo);
+    border: none;
+    padding: 8px 15px;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  
+  .add-user-form button:hover {
+    background-color: var(--preto-fosco);
+  }
+  
+  
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+  }
+  
+  th, td {
+    border: 1px solid var(--cinza-claro);
+    padding: 10px;
+    text-align: left;
+  }
+  
+  th {
+    background-color: var(--vermelho-escuro);
+    color: var(--branco-gelo);
+    cursor: pointer;
+  }
+  tr:hover {
+    background-color: #f0f0f0;
+  }
+  #profilePhoto{
+    width: 50px;
+    border-radius: 50%;
+  }

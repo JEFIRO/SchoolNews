@@ -35,6 +35,8 @@ public class SecurityConfg {
                         .requestMatchers("/api/permission/**").hasRole("ADMIN")
                         .requestMatchers("/allMember/**").hasRole("ADMIN")
                         .requestMatchers("/api/news/**").hasRole("EDITOR")
+                        .requestMatchers(HttpMethod.GET, "/find/**").hasRole("ADMIN")
+
                 )
                 .addFilterBefore(securityFilter, UsernamePasswordAuthenticationFilter.class)
 

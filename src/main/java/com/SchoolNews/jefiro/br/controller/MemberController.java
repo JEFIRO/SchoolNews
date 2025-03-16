@@ -61,7 +61,7 @@ public class MemberController {
 
     }
 
-    @PostMapping("/find{date}")
+    @GetMapping("/find/{date}")
     public ResponseEntity<?> findMember(@PathVariable String date) {
         try {
 
@@ -70,6 +70,7 @@ public class MemberController {
             return ResponseEntity.ok().body(response);
 
         } catch (Exception e) {
+
             return ResponseEntity.badRequest().build();
         }
     }
