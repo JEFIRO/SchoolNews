@@ -1,6 +1,8 @@
 package com.SchoolNews.jefiro.br.domain;
 
+import com.SchoolNews.jefiro.br.models.Comentarios;
 import com.SchoolNews.jefiro.br.models.NewsModel;
+import com.SchoolNews.jefiro.br.models.SchoolModel;
 import com.SchoolNews.jefiro.br.models.dto.UpMembersDTO;
 import com.SchoolNews.jefiro.br.models.enumm.MemberRole;
 import jakarta.persistence.*;
@@ -45,10 +47,21 @@ public class MembersModel implements UserDetails {
     private Boolean publishedPermission;
     private Boolean accountNotLocked;
 
-    @OneToMany(mappedBy = "members",cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "members", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<NewsModel> news;
 
-    public MembersModel(UpMembersDTO data, String passWordEncry){
+    @OneToMany(mappedBy = "membersModels", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Comentarios> comentarios;
+
+
+    @ManyToOne
+    @JoinColumn(name = "school_id")
+    private SchoolModel schoolModel;
+
+
+
+
+    public MembersModel(UpMembersDTO data, String passWordEncry) {
         this.name = data.name();
         this.email = data.email();
         this.password = passWordEncry;
@@ -58,15 +71,30 @@ public class MembersModel implements UserDetails {
         this.status = true;
         this.publishedPermission = true;
         this.accountNotLocked = true;
+    }
 
-
+    public void memberModelADM(UpMembersDTO data, String passWordEncry) {
+        this.name = data.name();
+        this.email = data.email();
+        this.password = passWordEncry;
+        this.role = MemberRole.ADMIN;
+        this.image = data.image();
+        this.dateCreated = LocalDateTime.now().toString();
+        this.status = true;
+        this.publishedPermission = true;
+        this.accountNotLocked = true;
     }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        if (this.role == MemberRole.ADMIN)return List.of(new SimpleGrantedAuthority("ROLE_ADMIN"),
-                new SimpleGrantedAuthority("ROLE_EDITOR"), new SimpleGrantedAuthority("ROLE_STUDENT"));
-        if (this.role == MemberRole.EDITOR)return List.of(new SimpleGrantedAuthority("ROLE_EDITOR"),
+        if (this.role == MemberRole.ADMIN) return List.of(new SimpleGrantedAuthority("ROLE_ADMIN"),
+                new SimpleGrantedAuthority("ROLE_EDITORCHIEF"),
+                new SimpleGrantedAuthority("ROLE_EDITOR"),
+                new SimpleGrantedAuthority("ROLE_STUDENT"));
+        else if (this.role == MemberRole.EDITORCHIEF) return List.of(new SimpleGrantedAuthority("ROLE_EDITORCHIEF"),
+                new SimpleGrantedAuthority("ROLE_EDITOR"),
+                new SimpleGrantedAuthority("ROLE_STUDENT"));
+        else if (this.role == MemberRole.EDITOR) return List.of(new SimpleGrantedAuthority("ROLE_EDITOR"),
                 new SimpleGrantedAuthority("ROLE_STUDENT"));
         else return List.of(new SimpleGrantedAuthority("ROLE_STUDENT"));
     }

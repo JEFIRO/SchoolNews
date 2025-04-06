@@ -1,7 +1,6 @@
 package com.SchoolNews.jefiro.br.service;
 
 import com.SchoolNews.jefiro.br.domain.MembersModel;
-import com.SchoolNews.jefiro.br.models.dto.FindMemberDTO;
 import com.SchoolNews.jefiro.br.models.dto.MemberDTO;
 import com.SchoolNews.jefiro.br.models.dto.UpMembersDTO;
 import com.SchoolNews.jefiro.br.repository.MemberRepository;
@@ -26,6 +25,7 @@ public class MemberService implements UserDetailsService {
         memberRepository.save(model);
         return date;
     }
+
     public MemberDTO findMember(String date) {
         MembersModel member = memberRepository.findById(date).get();
 

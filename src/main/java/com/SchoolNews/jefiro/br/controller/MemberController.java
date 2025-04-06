@@ -1,10 +1,7 @@
 package com.SchoolNews.jefiro.br.controller;
 
 import com.SchoolNews.jefiro.br.domain.MembersModel;
-import com.SchoolNews.jefiro.br.models.dto.AuthDTO;
-import com.SchoolNews.jefiro.br.models.dto.FindMemberDTO;
-import com.SchoolNews.jefiro.br.models.dto.UpMembersDTO;
-import com.SchoolNews.jefiro.br.models.dto.TokenDTO;
+import com.SchoolNews.jefiro.br.models.dto.*;
 import com.SchoolNews.jefiro.br.repository.MemberRepository;
 import com.SchoolNews.jefiro.br.service.MemberService;
 import com.SchoolNews.jefiro.br.service.TokenService;
@@ -17,7 +14,7 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
-@RestController
+@RestController("api/member")
 public class MemberController {
     @Autowired
     private MemberService memberService;
@@ -57,7 +54,7 @@ public class MemberController {
 
         var token = tokenService.generateToken((MembersModel) auth.getPrincipal());
 
-        return ResponseEntity.ok().body(new TokenDTO(token));
+        return ResponseEntity.ok().body(new LoginResponse(new TokenDTO(token), new MemberDTO(repository.findByEmail(data.email()))));
 
     }
 

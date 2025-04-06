@@ -11,6 +11,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Getter
 @Setter
@@ -23,6 +24,7 @@ public class NewsModel {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     private String _id;
+
     private String title;
     private String description;
     private String imageMain;
@@ -30,19 +32,25 @@ public class NewsModel {
     private String datePublished;
     private String author;
     private String lead;
-    @Column(length = 100000)
+    @Column(length = 1000000)
     private String content;
     private String dateUpdated;
     private Boolean status;
     private Boolean published;
     private Boolean lockedNews;
+    private Integer likes;
+
+
+    @OneToMany(mappedBy = "news")
+    private List<Comentarios> comentarios;
+
 
 
     @ManyToOne
     @JoinColumn(name = "member_id", nullable = false)
     private MembersModel members;
 
-    public NewsModel(NewsModelDTO date, MembersModel membersModel){
+    public NewsModel(NewsModelDTO date, MembersModel membersModel) {
         this.members = membersModel;
         this.title = date.title();
         this.description = date.description();
@@ -57,7 +65,8 @@ public class NewsModel {
         this.published = true;
         this.dateUpdated = LocalDateTime.now().toString();
     }
-    public NewsModel(HomeDTO date){
+
+    public NewsModel(HomeDTO date) {
         this.title = date.title();
         this.description = date.description();
         this.imageMain = date.imageMain();

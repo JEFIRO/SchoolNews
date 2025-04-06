@@ -11,4 +11,5 @@ public record HomeDTO(
         String author,
         String lead,
         String content,
-        String dateUpdated) {}
+        String dateUpdated,
+        Integer like) {}

@@ -6,11 +6,12 @@ import lombok.Getter;
 public enum MemberRole {
     ADMIN("admin"),
     EDITOR("editor"),
-    STUDENT("student");
+    STUDENT("student"),
+    EDITORCHIEF("editorChief");
 
     private String role;
 
-    MemberRole(String role){
+    MemberRole(String role) {
         this.role = role;
     }
 }

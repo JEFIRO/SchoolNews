@@ -41,7 +41,7 @@ public class NewsService {
         return repository.findAll().stream().map(
                 home -> new HomeDTO(home.getMembers().get_id(), home.get_id(), home.getTitle(),
                         home.getDescription(), home.getImageMain(), home.getImageMainDescription(), home.getDatePublished(),
-                        home.getAuthor(), home.getLead(), home.getContent(), home.getDateUpdated())
+                        home.getAuthor(), home.getLead(), home.getContent(), home.getDateUpdated(),home.getLikes())
         ).toList();
     }
 

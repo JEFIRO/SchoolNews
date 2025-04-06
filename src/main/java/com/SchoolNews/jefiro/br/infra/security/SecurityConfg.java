@@ -6,7 +6,6 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
-import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
@@ -19,7 +18,6 @@ import java.util.List;
 
 @Configuration
 @EnableWebSecurity
-@EnableGlobalMethodSecurity(prePostEnabled = true)
 public class SecurityConfg {
     @Autowired
     SecurityFilter securityFilter;
@@ -32,6 +30,7 @@ public class SecurityConfg {
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers(HttpMethod.POST, "/auth/v1/singin").permitAll()
                         .requestMatchers(HttpMethod.POST, "/auth/v1/singup").permitAll()
+                        .requestMatchers(HttpMethod.POST, "/api/news/like/**").hasRole("STUDENT")
                         .requestMatchers("/api/permission/**").hasRole("ADMIN")
                         .requestMatchers("/allMember/**").hasRole("ADMIN")
                         .requestMatchers("/api/news/**").hasRole("EDITOR")
@@ -62,7 +61,6 @@ public class SecurityConfg {
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
-
 
 }
 
