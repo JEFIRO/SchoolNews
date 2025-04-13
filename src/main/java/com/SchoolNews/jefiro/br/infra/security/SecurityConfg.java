@@ -30,9 +30,11 @@ public class SecurityConfg {
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers(HttpMethod.POST, "/auth/v1/singin").permitAll()
                         .requestMatchers(HttpMethod.POST, "/auth/v1/singup").permitAll()
+                        .requestMatchers(HttpMethod.POST, "/api/v1/newSchool").permitAll()
+                        .requestMatchers(HttpMethod.POST, "/api/v1/loginSchool").permitAll()
                         .requestMatchers(HttpMethod.POST, "/api/news/like/**").hasRole("STUDENT")
+                        .requestMatchers("/auth/v1/allMember/**").hasRole("ADMIN")
                         .requestMatchers("/api/permission/**").hasRole("ADMIN")
-                        .requestMatchers("/allMember/**").hasRole("ADMIN")
                         .requestMatchers("/api/news/**").hasRole("EDITOR")
                         .requestMatchers(HttpMethod.GET, "/find/**").hasRole("ADMIN")
 
@@ -42,7 +44,7 @@ public class SecurityConfg {
                 .cors(cors -> cors.configurationSource(request -> {
                     org.springframework.web.cors.CorsConfiguration config = new org.springframework.web.cors.CorsConfiguration();
 
-                    config.setAllowedOrigins(List.of("http://localhost:5173"));
+                    config.setAllowedOrigins(List.of("http://192.168.86.17"));
                     config.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS"));
                     config.setAllowedHeaders(List.of("*"));
                     config.setAllowCredentials(true);
@@ -63,4 +65,3 @@ public class SecurityConfg {
     }
 
 }
-

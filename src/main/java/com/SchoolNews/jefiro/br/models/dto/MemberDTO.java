@@ -8,7 +8,7 @@ public record MemberDTO(
         String name,
         MemberRole role,
         String image,
-        String dateCreated,
+        String dateCreated ,
         String dateUpdated,
         Boolean status,
         Boolean publishedPermission,

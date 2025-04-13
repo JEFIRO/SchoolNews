@@ -61,12 +61,12 @@ public class MembersModel implements UserDetails {
 
 
 
-    public MembersModel(UpMembersDTO data, String passWordEncry) {
+
+    public MembersModel(UpMembersDTO data) {
         this.name = data.name();
         this.email = data.email();
-        this.password = passWordEncry;
+        this.password = data.passWord();
         this.role = MemberRole.STUDENT;
-        this.image = data.image();
         this.dateCreated = LocalDateTime.now().toString();
         this.status = true;
         this.publishedPermission = true;
@@ -78,7 +78,6 @@ public class MembersModel implements UserDetails {
         this.email = data.email();
         this.password = passWordEncry;
         this.role = MemberRole.ADMIN;
-        this.image = data.image();
         this.dateCreated = LocalDateTime.now().toString();
         this.status = true;
         this.publishedPermission = true;
@@ -123,4 +122,6 @@ public class MembersModel implements UserDetails {
     public boolean isEnabled() {
         return this.status;
     }
+
+
 }

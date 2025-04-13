@@ -1,0 +1,17 @@
+version: '3.8'
+
+services:
+  postgres:
+    image: postgres
+    container_name: schoolnews_db
+    restart: unless-stopped
+    ports:
+      - "5157:5432"
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: 1234
+      POSTGRES_DB: schoolnews
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+volumes:
+  pgdata:
