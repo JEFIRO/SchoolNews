@@ -1,5 +1,8 @@
 package com.SchoolNews.jefiro.br.service;
 
+import com.SchoolNews.jefiro.br.infra.security.Exception.UnauthorizedException;
+import com.SchoolNews.jefiro.br.infra.security.Exception.UserNotFoundException;
+import com.SchoolNews.jefiro.br.models.dto.MemberDTO;
 import com.SchoolNews.jefiro.br.models.enumm.MemberRole;
 import com.SchoolNews.jefiro.br.repository.MemberRepository;
 import com.SchoolNews.jefiro.br.repository.NewsRepository;
@@ -34,42 +37,44 @@ public class PermissionService {
         return ResponseEntity.ok().body("User status changed successfully");
     }
 
-    public ResponseEntity<String> accountLocked(String id) {
+    public MemberDTO accountLocked(String id) {
         var member = memberRepository.findById(id);
-
         if (member.isEmpty()) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("User not found");
+            throw new UserNotFoundException("");
         }
 
         var memberGet = member.get();
 
-        if (memberGet.getRole() == MemberRole.ADMIN) {
-            return ResponseEntity.status(HttpStatus.FORBIDDEN).body("You can't change an admin status");
+        if (memberGet.getRole().equals(MemberRole.ADMIN)) {
+            throw new UnauthorizedException("You can't change an admin status");
         }
 
         memberGet.setAccountNotLocked(!memberGet.getAccountNotLocked());
         memberRepository.save(memberGet);
 
 
-        return ResponseEntity.ok().body("User account locked successfully");
+        return new MemberDTO(memberGet);
     }
 
-    public ResponseEntity<String> changedPemission(String id, MemberRole role) {
+    public MemberDTO changedPemission(String id, String role) {
         var member = memberRepository.findById(id);
         if (member.isEmpty()) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("User not found");
+            throw new UserNotFoundException("");
         }
 
         var memberGet = member.get();
 
-        if (memberGet.getRole() == MemberRole.ADMIN) {
-            return ResponseEntity.status(HttpStatus.FORBIDDEN).body("You can't change an admin status");
+        if (memberGet.getRole().equals(MemberRole.ADMIN)) {
+            throw new UnauthorizedException("You can't change an admin status");
         }
 
-        memberGet.setRole(role);
-        memberRepository.save(memberGet);
+        MemberRole memberRole = MemberRole.valueOf(role.toUpperCase());
+        memberGet.setRole(memberRole);
+        var membe =  memberRepository.save(memberGet);
 
-        return ResponseEntity.ok().body("User permission changed successfully");
+
+
+        return new MemberDTO(membe);
     }
 
     public ResponseEntity<String> newsLocked(String id) {

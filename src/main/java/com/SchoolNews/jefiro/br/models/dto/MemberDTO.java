@@ -6,6 +6,7 @@ import com.SchoolNews.jefiro.br.models.enumm.MemberRole;
 public record MemberDTO(
         String _id,
         String name,
+        String email,
         MemberRole role,
         String image,
         String dateCreated ,
@@ -18,6 +19,7 @@ public record MemberDTO(
         this(
                 date.get_id(),
                 date.getName(),
+                date.getEmail(),
                 date.getRole(),
                 date.getImage(),
                 date.getDateCreated(),

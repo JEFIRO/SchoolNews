@@ -32,6 +32,10 @@ public class SecurityConfg {
                         .requestMatchers(HttpMethod.POST, "/auth/v1/singup").permitAll()
                         .requestMatchers(HttpMethod.POST, "/api/v1/newSchool").permitAll()
                         .requestMatchers(HttpMethod.POST, "/api/v1/loginSchool").permitAll()
+                        .requestMatchers(
+                                "/swagger-ui/**",
+                                "/v3/api-docs/**",          // <- ESSENCIAL para funcionar
+                                "/swagger-ui.html").permitAll()
                         .requestMatchers(HttpMethod.POST, "/api/news/like/**").hasRole("STUDENT")
                         .requestMatchers("/auth/v1/allMember/**").hasRole("ADMIN")
                         .requestMatchers("/api/permission/**").hasRole("ADMIN")
